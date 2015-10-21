@@ -43,14 +43,14 @@ begin
 	    for i := 1 to x do
 		  begin
 		  
-            if (i = j) then 
+            if (i = j) then
               begin
                 odleglosc[i, j] := 0;
                 odleglosc[j, i] := 0;              	
               end
 
             else
-                if (odleglosc[i, j] > 0) then odleglosc[i, j] := odleglosc[j, i]
+                if (odleglosc[i, j] > 0) then odleglosc[i, j] := odleglosc[j, i] //gwarancja, że nie zapyta o ten sam dystans tylko w drugą stronę
                 // if (odleglosc[j, i] > 0) then odleglosc[j, i] := odleglosc[i, j];
                 else
 
@@ -63,29 +63,20 @@ begin
 		  end;
 	    end;
     
-
-   
-                
-// if (odleglosc[i, j] > 0) then odleglosc[i, j] := odleglosc[j, i];
-// if (odleglosc[j, i] > 0) then odleglosc[j, i] := odleglosc[i, j];                
-
-
-
+          
 
 //test
      writeln('test 1-2: ', odleglosc[1, 2]);
      writeln('test 2-1: ', odleglosc[2, 1]);
      writeln('test 1-1: ', odleglosc[1, 1]);
 
-      // + Zderz każde miasto z każdym i wynik wpisz do tabeli. 
-      // Gdy pytasz o miasto "a" i "b", sprawdź czy pytałeś już o "b" i "a", jeśli tak, to pomiń i przepisz wynik z poprzedniego pytania. 
-      // + Nie pytaj o "a" i "a", tylko wpisz 0.
-
 
 //od którego zacząć
-    // writeln('Od ktorego miasta chcesz zaczac? Podaj numer:');
-    // for i := 1 to x do writeln(i, ') ', miasto[i]);
-    // readln;
+    writeln('Od ktorego miasta chcesz zaczac? Podaj numer:');
+      for i := 1 to x do writeln(i, ') ', miasto[i]);
+      readln;
+
+
 
 
 //LICZENIE METODĄ GREEDY, czyli najbliższe miasto

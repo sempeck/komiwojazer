@@ -12,13 +12,14 @@ var
          start : Integer;
             st : Integer;
            min : Integer;
+          next : Integer;
 
 
 begin
   
 //dane do testów
   x := 5;
-  start := 2;
+  start := 3;
   miasto[1] := '1 Nysa';
   miasto[2] := '2 Wrocław';
   miasto[3] := '3 Kraków';
@@ -58,29 +59,35 @@ writeln(miasto[1], ' - ', miasto[2], ' - ', miasto[3], ' - ', miasto[4], ' - ', 
   for i := 1 to 5 do //główny loop dla wszystkich miast
     begin
       
-      //ustawianie default dla "min", musi być różne od zera
-       if (odleglosc[st,1] = 0) then
-          min := odleglosc[st,2]
-       else
-          min := odleglosc[st,1]; 
+      //ustawianie default dla "min", musi być różne od zera !!!! do zmiany
+       // if (odleglosc[st,1] = 0) then
+       //    min := odleglosc[st,2]
+       // else
+       //    min := odleglosc[st,1]; 
                  
+                 min := 1000;
     
        for j := 1 to x do //loop sprawdzający kolejne odległości w jednym mieście
             if (miasto_spr1[j] <> 'odwiedzone') then
-                if (odleglosc[st, j] < min) and (odleglosc[st, j] > 0) then min := j; //znajdź najmniejszą
-                
+               begin  
+                if (odleglosc[st, j] < min) and (odleglosc[st, j] > 0) then 
+                  begin
+                    min := odleglosc[st, j]; //znajdź najmniejszą
+                    next := j;
+                    writeln('*test, cząstkowy wynik min: ', min);
+                    writeln('*test, no będzie next: ', next)
+                  end;
+                end;
             
 
-            miasto_spr1[i] := 'odwiedzone'; //zaznacza, że tu już był
+            miasto_spr1[st] := 'odwiedzone'; //zaznacza, że tu już był
             droga1[i] := miasto[st]; // kolejne miasta dodawane do wyniku
-            st := min;    
+            st := next;    
     
     end;//koniec głównego loopa
         
              
-writeln('*test min, najmniejsze dla ', st, ': ', min);
-writeln('*test zwycięzca st: ', st);
-
+writeln('********* Po loopie **********');
 writeln('*test odwiedzone: '); //Pokaż trasę
     for i := 1 to x do
       writeln(miasto_spr1[i]);  

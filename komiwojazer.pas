@@ -5,6 +5,10 @@ var
 	   odleglosc : array[1..10, 1..10] of Integer;
         miasto : array[1..10] of String;
 
+//metoda 1
+        miasto_spr1 : array[1..10] of String;
+        droga1 : array[1..10] of String;
+        start : Integer;
 
 begin
 	
@@ -15,7 +19,11 @@ begin
     for i := 1 to 10 do
       begin
         odleglosc[i, i] := 0;
-        miasto[i] := '';
+              miasto[i] := '';
+        
+//metoda 1
+        miasto_spr1[i] := '';
+             droga1[i] := '';
       end;
 
 
@@ -64,26 +72,35 @@ begin
        
 
 //test
-     Writeln('test miasta: ', miasto[1], ' - ', miasto[2], ' - ', miasto[3]);
-     writeln('test 1-2: ', odleglosc[1, 2]);
-     writeln('test 2-1: ', odleglosc[2, 1]);
-     writeln('test 1-1: ', odleglosc[1, 1]);
+     Writeln('*test miasta: ', miasto[1], ' - ', miasto[2], ' - ', miasto[3]);
+     writeln('*test 1-2: ', odleglosc[1, 2]);
+     writeln('*test 2-1: ', odleglosc[2, 1]);
+     writeln('*test 1-1: ', odleglosc[1, 1]);
 
 
 //od którego zacząć
     writeln('Od ktorego miasta chcesz zaczac? Podaj numer:');
       for i := 1 to x do writeln(i, ') ', miasto[i]);
-      readln;
+      readln(start);
 
 
 //LICZENIE METODĄ GREEDY, czyli najbliższe miasto
+     miasto_spr1 := miasto; //kopia listy miast do sprawdzania i zaznaczania na niej odwiedzonych miast
+
+//test
+      Writeln('*test miasta, met 1: ', miasto_spr1[1], ' - ', miasto_spr1[2], ' - ', miasto_spr1[3]);
+
+  
+
+  // weź miejsce startowe
+
 	// 	for i := 1 to x do:
 	//      
 	// 		wyklucz miejsca gdzie byłeś
 	// 		sprawdź najmniejsze odległości do innych 
 	// 		wybierz najmniejszą i do niej przejdź. 
 	// 		zaznacz, że tu byłeś (visited := true) || wywal z tablicy?
-	//    zapisz do kolejności odwiedzania, trasy (dodaj do tablicy = droga?)
+	//    zapisz do kolejności odwiedzania, trasy (dodaj do tablicy = 'droga1')
 	//    dodaj liczbę przebytych kilometrów
 
 
@@ -91,9 +108,12 @@ begin
    // wróć do miasta początkowego i dodaj go do statystyk
 
 
-//WYNIKI
-  // writeln('Optymalna trasa to: '); //Pokaż trasę
 
+//WYNIKI
+  writeln('Optymalna trasa wedlug metody GREEDY to: '); //Pokaż trasę
+    for i := 1 to x do
+      writeln(droga1[i]);
+      
 //ewentualnie także: Pokaż liczbę kilometrów
 
 

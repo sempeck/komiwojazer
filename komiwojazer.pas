@@ -6,15 +6,18 @@ var
         miasto : array[1..10] of String;
 
 //metoda 1
-        miasto_spr1 : array[1..10] of String;
+   miasto_spr1 : array[1..10] of String;
         droga1 : array[1..10] of String;
-        start : Integer;
+         start : Integer;
+            st : Integer;
 
 begin
 	
 //zerowanie tablic i integerów
-    x := 0;
-    i := 0;
+      x := 0;
+      i := 0;
+  start := 0;
+     st := 0;
 
     for i := 1 to 10 do
       begin
@@ -22,14 +25,14 @@ begin
               miasto[i] := '';
         
 //metoda 1
-        miasto_spr1[i] := '';
-             droga1[i] := '';
+         miasto_spr1[i] := '';
+              droga1[i] := '';
       end;
 
 
 //początek
 	  writeln('Ten program znajdzie optymalna trase.');
-    writeln('Przez ile miast musisz przejechac? Maksymalnie 10:');
+    writeln('Przez ile miast musisz przejechac? Maksymalnie 9:');
     readln(x);   
 
 
@@ -90,30 +93,45 @@ begin
 //test
       Writeln('*test miasta, met 1: ', miasto_spr1[1], ' - ', miasto_spr1[2], ' - ', miasto_spr1[3]);
 
+  // np. 5
+
+      st := start;
+
+           min := odleglosc[st,1]; //defaultowo na st:1
+        
+           for i := 1 to x do
+             
+             if (miasto_spr1[i] = 'odwiedzone') then // sprawdzanie czy tu byłem
+                 // jeśli tak, to pomiń to miasto
+
+
+             if (odleglosc[st, i] = 0) then //wykluczenie sprawdzania do samej siebie
+                 // jeśli tak, to pomiń to miasto
+
   
+             for i:= 1 to x do
+               if (odleglosc[st, i] < min) then min := i; //znajdź najmniejszą
+                          
+        
+             st := min;    // nowy zwycięzca, do którego trzeba przejść w następnym loopie
 
-  // weź miejsce startowe
-
-	// 	for i := 1 to x do:
-	//      
-	// 		wyklucz miejsca gdzie byłeś
-	// 		sprawdź najmniejsze odległości do innych 
-	// 		wybierz najmniejszą i do niej przejdź. 
-	// 		zaznacz, że tu byłeś (visited := true) || wywal z tablicy?
-	//    zapisz do kolejności odwiedzania, trasy (dodaj do tablicy = 'droga1')
+     //tablice
+             miasto_spr1[i] := 'odwiedzone'; //zaznacza, że tu już był
+             droga1[i] := miasto[st]; // kolejne numery......
+                   
 	//    dodaj liczbę przebytych kilometrów
 
 
 //po obliczeniach
    // wróć do miasta początkowego i dodaj go do statystyk
-
+       droga1[x+1] := miasto[start];
 
 
 //WYNIKI
   writeln('Optymalna trasa wedlug metody GREEDY to: '); //Pokaż trasę
-    for i := 1 to x do
+    for i := 1 to (x+1) do
       writeln(droga1[i]);
-      
+
 //ewentualnie także: Pokaż liczbę kilometrów
 
 

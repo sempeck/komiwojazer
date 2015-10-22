@@ -4,7 +4,7 @@ Uses sysutils;
 
 var
   
-  x, i, j, odl : Integer;
+       x, i, j : Integer;
      odleglosc : array[1..100, 1..100] of Integer;
         miasto : array[1..100] of String;
 
@@ -30,19 +30,19 @@ begin
       miasto[i] := 'miasto ' + IntToStr(i);  
 
 //losowanie odległości      
-for j := 1 to x do
-  for i := 1 to x do
-    begin
-      if (i = j) then
-       odleglosc[i,j] := 0
-      else
-       odleglosc[i,j] := random(100);
-    end; 
+  for j := 1 to x do
+    for i := 1 to x do
+      begin
+        if (i = j) then
+         odleglosc[i,j] := 0
+        else
+         odleglosc[i,j] := random(100);
+      end; 
 
 //eliminacja zdublowanych odległości
-for j := 1 to x do
-  for i := 1 to x do
-    if (odleglosc[i, j] > 0) then odleglosc[i, j] := odleglosc[j, i];
+  for j := 1 to x do
+    for i := 1 to x do
+      if (odleglosc[i, j] > 0) then odleglosc[i, j] := odleglosc[j, i];
 
 //test wypisuje wszystkie odległości
   // for j := 1 to x do
@@ -72,7 +72,7 @@ for j := 1 to x do
        //    min := odleglosc[st,2]
        // else
        //    min := odleglosc[st,1]; 
-       //tymczasowy default      ----> do zmiany
+       //tymczasowy default      ----> do poprawy
                  min := 1000; 
 
 //loop szukający najmniejszej odległości do innego miasta    
@@ -101,8 +101,8 @@ for j := 1 to x do
 //powrót do domu
    droga1[x+1] := miasto[start];
            
-//obliczanie sumy bez ostatniego "min"   ----> do zmiany
-        suma := suma - min + odleglosc[start, st];
+//obliczanie odległości bez ostatniego "min"   ----> do poprawy
+   suma := suma - min + odleglosc[start, st];
 
 //test ostatniego odcinka
       // writeln('test st: ', st);

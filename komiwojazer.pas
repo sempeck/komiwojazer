@@ -10,6 +10,7 @@ var
         droga1 : array[1..10] of String;
          start : Integer;
             st : Integer;
+            min: Integer;
 
 begin
 	
@@ -40,7 +41,7 @@ begin
     for i := 1 to x do
       begin
 	      writeln('Podaj miasto numer ', i);
-	      readln(miasto[i]); // zapisuje na tablicy kolejne miasta
+	      readln(miasto[i]);
       end;
 
 
@@ -76,26 +77,32 @@ begin
 
 //test
      Writeln('*test miasta: ', miasto[1], ' - ', miasto[2], ' - ', miasto[3]);
-     writeln('*test 1-2: ', odleglosc[1, 2]);
-     writeln('*test 2-1: ', odleglosc[2, 1]);
      writeln('*test 1-1: ', odleglosc[1, 1]);
+     writeln('*test 1-2: ', odleglosc[1, 2]);
+     writeln('*test 1-3: ', odleglosc[1, 3]);
+     
+     writeln('*test 2-1: ', odleglosc[2, 1]);
+     writeln('*test 2-2: ', odleglosc[2, 2]);
+     writeln('*test 2-3: ', odleglosc[2, 3]);
 
+     writeln('*test 3-1: ', odleglosc[3, 1]);
+     writeln('*test 3-2: ', odleglosc[3, 2]);
+     writeln('*test 3-3: ', odleglosc[3, 3]);
 
 //od którego zacząć
     writeln('Od ktorego miasta chcesz zaczac? Podaj numer:');
       for i := 1 to x do writeln(i, ') ', miasto[i]);
       readln(start);
 
+// ****************************************************************************************************
+// LICZENIE METODĄ GREEDY, czyli najbliższe miasto
+// ****************************************************************************************************
+// ****************************************************************************************************
 
-//LICZENIE METODĄ GREEDY, czyli najbliższe miasto
      miasto_spr1 := miasto; //kopia listy miast do sprawdzania i zaznaczania na niej odwiedzonych miast
+     st := start; //kopia miasta początkowego, w metodzie będzie zmieniany
+//************************
 
-//test
-      Writeln('*test miasta, met 1: ', miasto_spr1[1], ' - ', miasto_spr1[2], ' - ', miasto_spr1[3]);
-
-  // np. 5
-
-      st := start;
 
            min := odleglosc[st,1]; //defaultowo na st:1
         
@@ -119,7 +126,13 @@ begin
              miasto_spr1[i] := 'odwiedzone'; //zaznacza, że tu już był
              droga1[i] := miasto[st]; // kolejne numery......
                    
+
+
 	//    dodaj liczbę przebytych kilometrów
+
+// ****************************************************************************************************
+// ****************************************************************************************************
+// ****************************************************************************************************
 
 
 //po obliczeniach

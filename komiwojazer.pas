@@ -99,37 +99,7 @@ begin
 // ****************************************************************************************************
 // ****************************************************************************************************
 
-     miasto_spr1 := miasto; //kopia listy miast do sprawdzania i zaznaczania na niej odwiedzonych miast
-     st := start; //kopia miasta początkowego, w metodzie będzie zmieniany
-//************************
-
-
-           min := odleglosc[st,1]; //defaultowo na st:1
-        
-           for i := 1 to x do
-             
-             if (miasto_spr1[i] = 'odwiedzone') then // sprawdzanie czy tu byłem
-                 // jeśli tak, to pomiń to miasto
-
-
-             if (odleglosc[st, i] = 0) then //wykluczenie sprawdzania do samej siebie
-                 // jeśli tak, to pomiń to miasto
-
-  
-             for i:= 1 to x do
-               if (odleglosc[st, i] < min) then min := i; //znajdź najmniejszą
-                          
-        
-             st := min;    // nowy zwycięzca, do którego trzeba przejść w następnym loopie
-
-     //tablice
-             miasto_spr1[i] := 'odwiedzone'; //zaznacza, że tu już był
-             droga1[i] := miasto[st]; // kolejne numery......
-                   
-
-
-	//    dodaj liczbę przebytych kilometrów
-
+   
 // ****************************************************************************************************
 // ****************************************************************************************************
 // ****************************************************************************************************

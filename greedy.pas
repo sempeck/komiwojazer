@@ -1,33 +1,37 @@
 program greedy;
 
+Uses sysutils;
+
 var
   
   x, i, j, odl : Integer;
-     odleglosc : array[1..10, 1..10] of Integer;
-        miasto : array[1..10] of String;
+     odleglosc : array[1..100, 1..100] of Integer;
+        miasto : array[1..100] of String;
 
 //metoda 1
-   miasto_spr1 : array[1..10] of String;
-        droga1 : array[1..10] of String;
-         start : Integer;
-            st : Integer;
-           min : Integer;
-          next : Integer;
+   miasto_spr1, droga1 : array[1..100] of String;
+   start, st, min, next, suma : Integer;
 
 
 begin
-  
-//dane do testów
-  x := 5;
-  start := 3;
-  miasto[1] := '1 Nysa';
-  miasto[2] := '2 Wrocław';
-  miasto[3] := '3 Kraków';
-  miasto[4] := '4 Poznań';
-  miasto[5] := '5 Warszawa';
 
-for j := 1 to 5 do
-  for i := 1 to 5 do
+//skalowanie - ile miast
+  x := 99; 
+
+//od którego zacząć
+  start := 1;
+
+// ****************************************************************************
+// dane do testów
+// ****************************************************************************
+ 
+//nazwy miast
+  for i := 1 to x do
+      miasto[i] := 'miasto ' + IntToStr(i);  
+
+//losowanie odległości      
+for j := 1 to x do
+  for i := 1 to x do
     begin
       if (i = j) then
        odleglosc[i,j] := 0
@@ -35,72 +39,90 @@ for j := 1 to 5 do
        odleglosc[i,j] := random(100);
     end; 
 
-for j := 1 to 5 do
-  for i := 1 to 5 do
+//eliminacja zdublowanych odległości
+for j := 1 to x do
+  for i := 1 to x do
     if (odleglosc[i, j] > 0) then odleglosc[i, j] := odleglosc[j, i];
 
-for j := 1 to 5 do
-  for i := 1 to 5 do writeln('*test ', j, ' - ', i, ': ', odleglosc[j, i]);
-     
-writeln(miasto[1], ' - ', miasto[2], ' - ', miasto[3], ' - ', miasto[4], ' - ', miasto[5]);   
+//test wypisuje wszystkie odległości
+  // for j := 1 to x do
+  //   for i := 1 to x do writeln('*test ', j, ' - ', i, ': ', odleglosc[j, i]);
 
+//test wypisuje wszystkie nazwy miast     
+  // for j := 1 to x do
+  //   begin
+  //     write(miasto[j], ' - ');     
+  //   end;
 
-
-// ****************************************************************************************************
-// ****************************************************************************************************
-// ****************************************************************************************************
+// ****************************************************************************
+// ****************************************************************************
+// ****************************************************************************
 
  miasto_spr1 := miasto; //kopia listy miast do sprawdzania i zaznaczania na niej odwiedzonych miast
-          st := start; //kopia miasta początkowego, w metodzie będzie zmieniany
+          st := start; //kopia miasta początkowego
+        suma := 0; // zerowanie sumy odległości
 //************************
 
-// miasto_spr1[5] := 'odwiedzone'; //test
-
-  for i := 1 to 5 do //główny loop dla wszystkich miast
+//główny loop dla wszystkich miast
+  for i := 1 to x do 
     begin
       
-      //ustawianie default dla "min", musi być różne od zera !!!! do zmiany
+      //ustawianie default dla "min"
        // if (odleglosc[st,1] = 0) then
        //    min := odleglosc[st,2]
        // else
        //    min := odleglosc[st,1]; 
-                 
-                 min := 1000;
-    
-       for j := 1 to x do //loop sprawdzający kolejne odległości w jednym mieście
+       //tymczasowy default      ----> do zmiany
+                 min := 1000; 
+
+//loop szukający najmniejszej odległości do innego miasta    
+       for j := 1 to x do 
             if (miasto_spr1[j] <> 'odwiedzone') then
                begin  
                 if (odleglosc[st, j] < min) and (odleglosc[st, j] > 0) then 
                   begin
-                    min := odleglosc[st, j]; //znajdź najmniejszą
+                    min := odleglosc[st, j];
                     next := j;
-                    writeln('*test, cząstkowy wynik min: ', min);
-                    writeln('*test, no będzie next: ', next)
+                    
+                    // writeln('*test, cząstkowy wynik min: ', min);
+                    // writeln('*test, co będzie next: ', next)
                   end;
                 end;
             
-
+            suma := suma + min;
             miasto_spr1[st] := 'odwiedzone'; //zaznacza, że tu już był
-            droga1[i] := miasto[st]; // kolejne miasta dodawane do wyniku
-            st := next;    
+            droga1[i] := miasto[st]; // kolejne miasta dodawane do tablicy
+            st := next;
+               // writeln('*test, cząstkowa odleglosc: ', suma);
     
-    end;//koniec głównego loopa
-        
-             
-writeln('********* Po loopie **********');
-writeln('*test odwiedzone: '); //Pokaż trasę
-    for i := 1 to x do
-      writeln(miasto_spr1[i]);  
+    end;
+//koniec głównego loopa
 
-writeln('*test droga: '); //Pokaż trasę
-    for i := 1 to x do
-      writeln(droga1[i]);  
+//powrót do domu
+   droga1[x+1] := miasto[start];
+           
+//obliczanie sumy bez ostatniego "min"   ----> do zmiany
+        suma := suma - min + odleglosc[start, st];
+
+//test ostatniego odcinka
+      // writeln('test st: ', st);
+
+//test sprawdza, czy wszystkie miasta zostały odwiedzone
+      // writeln('*test odwiedzone: '); 
+      //   for i := 1 to x do
+      //     writeln(miasto_spr1[i]);  
 
 
+//wyniki
+  writeln('********** WYNIKI **********');
 
-// //WYNIKI
-//   writeln('Optymalna trasa wedlug metody GREEDY to: '); //Pokaż trasę
-//     for i := 1 to (x+1) do
-//       writeln(droga1[i]);
+  writeln('Optymalna trasa to: ');
+      for i := 1 to x+1 do
+        writeln(droga1[i]); 
+
+  writeln('Dystans do przebycia: ', suma, ' km');
+
+  writeln('****************************');
+
 
 end.

@@ -5,21 +5,23 @@ Uses sysutils;
 var
   
        x, i, j : Integer;
-     odleglosc : array[1..100, 1..100] of Integer;
-        miasto : array[1..100] of String;
+     odleglosc : array[1..1001, 1..1001] of Integer;
+        miasto : array[1..1001] of String;
 
 //metoda 1
-   miasto_spr1, droga1 : array[1..100] of String;
+   miasto_spr1, droga1 : array[1..1001] of String;
    start, st, min, next, suma : Integer;
 
 
 begin
 
 //skalowanie - ile miast
-  x := 99; 
+  writeln('Ile miast chcesz odwiedzic? Od 1 do 1000:');
+  readln(x);
 
 //od którego zacząć
-  start := 1;
+  writeln('Od ktorego zaczac?');
+  readln(start);
 
 // ****************************************************************************
 // dane do testów
@@ -36,7 +38,7 @@ begin
         if (i = j) then
          odleglosc[i,j] := 0
         else
-         odleglosc[i,j] := random(100);
+         odleglosc[i,j] := random(1000);
       end; 
 
 //eliminacja zdublowanych odległości
@@ -117,11 +119,12 @@ begin
   writeln('********** WYNIKI **********');
 
   writeln('Optymalna trasa to: ');
-      for i := 1 to x+1 do
-        writeln(droga1[i]); 
+      for i := 1 to x do
+        write(droga1[i], ' - ');
+        writeln(droga1[x+1], '.'); 
 
+  writeln('****************************');
   writeln('Dystans do przebycia: ', suma, ' km');
-
   writeln('****************************');
 
 

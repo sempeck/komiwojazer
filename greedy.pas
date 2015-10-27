@@ -90,7 +90,8 @@ begin
                     // writeln('*test, co będzie next: ', next)
                   end;
                 end;
-            
+
+                  
             suma := suma + min;
             miasto_spr1[st] := 'odwiedzone'; //zaznacza, że tu już był
             droga1[i] := miasto[st]; // kolejne miasta dodawane do tablicy
@@ -126,6 +127,8 @@ begin
   writeln('****************************');
   writeln('Dystans do przebycia: ', suma, ' km');
   writeln('****************************');
+
+  readln;
 
 
 end.
